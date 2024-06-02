@@ -34,7 +34,7 @@ const OrderItem = (params: any) => {
     
     <TableRow>
         <TableCell className="font-medium">{params.order.id}</TableCell>
-        <TableCell className="font-medium">{params.order.user.username}</TableCell>
+        <TableCell className="font-medium">{params.order.username}</TableCell>
         <TableCell className="font-medium"><Badge variant="default">{params.order.status}</Badge>
 </TableCell>
      

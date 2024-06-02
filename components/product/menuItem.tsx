@@ -32,7 +32,7 @@ const MenuItem = (params: any) => {
         <TableCell className="font-medium">{params.item.name}</TableCell>
         <TableCell className="font-medium">{params.item.description}</TableCell>
         <TableCell className="font-medium">Rs {params.item.price}</TableCell>
-        <TableCell className="font-medium">{params.item.category.name}</TableCell>
+        <TableCell className="font-medium">{params.item['category:name']}</TableCell>
     
         <TableCell className="text-right">
         <DropdownMenu>

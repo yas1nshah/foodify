@@ -26,7 +26,7 @@ const ProductPage = async () => {
    
   return (
     <div className='p-6'>
-         <Link href={'/admin/menu'}>
+         <Link href={'/admin'}>
         <h1 className='flex text-2xl gap-2 items-center m-2'> <MoveLeft/> Back </h1>
       </Link>
     <Card>

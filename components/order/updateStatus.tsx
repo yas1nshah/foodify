@@ -19,7 +19,7 @@ const UpdateStatus = (params: {id:number, status : string}) => {
          
   return (
     <form action={()=>updateStatus()}>
-                      <Label htmlFor="price">Category</Label>
+                      <Label htmlFor="price">Current Status</Label>
                       <Select onValueChange={(e)=> setValue(e)} value={value} >
                           <SelectTrigger className="w-[180px]">
                               <SelectValue placeholder="Select Category" />

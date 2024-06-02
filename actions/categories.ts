@@ -1,43 +1,43 @@
 "use server"
 import { db } from "@/lib/db";
 
-
-export const createCategory= async (name: string) => {
-    const createdCategory = await db.category.create({
-        data: {
-            name: name
-        }
-    })
-} 
-
+export const createCategory = async (name: string) => {
+    const createdCategory = await db.$queryRaw`
+        INSERT INTO Category (name)
+        VALUES (${name})
+        RETURNING *
+    `;
+    return createdCategory;
+}
 
 export const getCategoryById = async (id: number) => {
-    const category = await db.category.findUnique({
-        where: { id }
-    });
+    const category = await db.$queryRaw`
+        SELECT * FROM Category WHERE id = ${id}
+    `;
     return category;
 }
 
 export const getAllCategory = async () => {
-    const category = await db.category.findMany();
-    return category;
+    const categories = await db.$queryRaw`
+        SELECT * FROM Category
+    `;
+    return categories;
 }
 
-
 export const updateCategory = async (id: number, name: string) => {
-    const updatedCategory = await db.category.update({
-        where: { id },
-        data: { name }
-    });
+    const updatedCategory = await db.$queryRaw`
+        UPDATE Category
+        SET name = ${name}
+        WHERE id = ${id}
+        RETURNING *
+    `;
     return updatedCategory;
 }
 
 export const deleteCategory = async (id: number) => {
-    const deletedCategory = await db.category.delete({
-        where: { id }
-    });
+    const deletedCategory = await db.$queryRaw`
+        DELETE FROM Category WHERE id = ${id}
+        RETURNING *
+    `;
     return deletedCategory;
 }
-
-
-

@@ -43,9 +43,9 @@ import UpdateStatus from "@/components/order/updateStatus"
 import Link from "next/link"
   
   const OrderDetailsPage = async ({ params }: { params: { id: string } }) => {
-    const order = await getOrderById(parseInt(params.id));
+    const order:any = await getOrderById(parseInt(params.id));
   
-    const orderItems = await getCurrentOrderItems(parseInt(params.id));
+    const orderItems : any = await getCurrentOrderItems(parseInt(params.id));
 
 
     return (
@@ -58,10 +58,10 @@ import Link from "next/link"
           <CardHeader className="flex flex-row items-start bg-muted/50">
             <div className="grid gap-0.5">
               <CardTitle className="group flex items-center gap-2 text-lg">
-                Order {order?.id}
+                Order {order[0].id}
                 
               </CardTitle>
-              <CardDescription>Date: {order?.placedAt.toLocaleDateString()}</CardDescription>
+              <CardDescription>Date: {order[0].placedAt.toLocaleDateString()}</CardDescription>
             </div>
           </CardHeader>
           <CardContent className="p-6 text-sm">
@@ -70,12 +70,12 @@ import Link from "next/link"
               <ul className="grid gap-3">
                 {
                   orderItems ?
-                  orderItems.map((item)=>(
+                  orderItems.map((item:any)=>(
                     <li key={item.id} className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        {item.menuItem.name} x <span>{item.quantity}</span>
+                        {item.name} x <span>{item.quantity}</span>
                       </span>
-                      <span>Rs {item.menuItem.price * item.quantity}</span>
+                      <span>Rs {item.price * item.quantity}</span>
                     </li>
                   ))
                   :
@@ -88,7 +88,7 @@ import Link from "next/link"
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span>
-                    Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity), 0)}
+                    Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity), 0)}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">
@@ -97,11 +97,11 @@ import Link from "next/link"
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Tax</span>
-                  <span>Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0)*15/100}</span>
+                  <span>Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0)*15/100}</span>
                 </li>
                 <li className="flex items-center justify-between font-semibold">
                   <span className="text-muted-foreground">Total</span>
-                  <span>Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0)*15/100 + orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0) + 150} </span>
+                  <span>Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0)*15/100 + orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0) + 150} </span>
                 </li>
               </ul>
             </div>
@@ -110,7 +110,7 @@ import Link from "next/link"
               <div className="grid gap-3">
                 <div className="font-semibold">Shipping Information</div>
                 <address className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>{order?.user.address}</span>
+                  <span>{order[0].address}</span>
                 
                 </address>
               </div>
@@ -127,12 +127,12 @@ import Link from "next/link"
               <div className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Customer</dt>
-                  <dd>{order?.user.username}</dd>
+                  <dd>{order[0].username}</dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Email</dt>
                   <dd>
-                    <a href="mailto:">{order?.user.email}</a>
+                    <a href="mailto:">{order[0].email}</a>
                   </dd>
                 </div>
               </div>
@@ -148,8 +148,8 @@ import Link from "next/link"
                   </dt>
                   <dd>
                     {
-                      order?.id !== undefined && order?.status !== undefined ?
-                      <UpdateStatus id={order?.id} status={order?.status}/>
+                      order[0].id !== undefined && order[0].status !== undefined ?
+                      <UpdateStatus id={order[0].id} status={order[0].status}/>
                       : <p>Unable to fetch</p>
                     }
                   </dd>

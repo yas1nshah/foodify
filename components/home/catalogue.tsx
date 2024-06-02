@@ -68,14 +68,17 @@ const Catalogue = (params: { items: MenuItem[] }) => {
     if(cart.length != 0){
 
       try {
-        const order = await createOrder("pending") // Replace with the actual user ID
-        if (order) {
+        const order:any = await createOrder("pending") // Replace with the actual user ID
+        console.log(order)
+        console.log("---------------------------------------")
+        if (order[0]) {
           await Promise.all(cart.map(async (itm) => {
-             await createOrderItem(order.id, itm.item.id, itm.quantity)
+
+             await createOrderItem(order[0].id, itm.item.id, itm.quantity)
           }))
           setCart([])
 
-          router.push(`/thanks/${order.id}`)
+          router.push(`/thanks/${order[0].id}`)
         }
       } catch (error) {
         console.error('Error creating order:', error)

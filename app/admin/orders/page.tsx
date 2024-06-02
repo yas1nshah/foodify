@@ -23,7 +23,7 @@ import { MoveLeft } from 'lucide-react'
   
 
 const ProductPage = async () => {
-    const allOrders = await getAllOrders() 
+    const allOrders:any = await getAllOrders() 
    
   return (
     <div className='p-6'>
@@ -49,7 +49,7 @@ const ProductPage = async () => {
         </TableHeader>
         <TableBody>
             {
-                allOrders.map((item)=> (
+                allOrders.map((item:any)=> (
                     <OrderItem key={item.id} order={item}/>
                 ))
             }

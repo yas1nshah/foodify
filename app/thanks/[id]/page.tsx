@@ -12,7 +12,7 @@ import { Separator } from '@/components/ui/separator';
 
   
 const ThankYouPage =async ({params}: { params: { id: string } }) => {
-  const orderItems = await getCurrentOrderItems(parseInt(params.id));
+  const orderItems:any = await getCurrentOrderItems(parseInt(params.id));
 
   return (
     <div className='p-12 w-full'>
@@ -26,12 +26,12 @@ const ThankYouPage =async ({params}: { params: { id: string } }) => {
             <ul className="grid gap-3 p-6">
                 {
                   orderItems ?
-                  orderItems.map((item)=>(
+                  orderItems.map((item:any)=>(
                     <li key={item.id} className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        {item.menuItem.name} x <span>{item.quantity}</span>
+                        {item.name} x <span>{item.quantity}</span>
                       </span>
-                      <span>Rs {item.menuItem.price * item.quantity}</span>
+                      <span>Rs {item.price * item.quantity}</span>
                     </li>
                   ))
                   :
@@ -45,7 +45,7 @@ const ThankYouPage =async ({params}: { params: { id: string } }) => {
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span>
-                    Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity), 0)}
+                    Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity), 0)}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">
@@ -54,11 +54,11 @@ const ThankYouPage =async ({params}: { params: { id: string } }) => {
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Tax</span>
-                  <span>Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0)*15/100}</span>
+                  <span>Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0)*15/100}</span>
                 </li>
                 <li className="flex items-center justify-between font-semibold">
                   <span className="text-muted-foreground">Total</span>
-                  <span>Rs {orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0)*15/100 + orderItems.reduce((total, item) => total + (item.menuItem.price * item.quantity) , 0) + 150} </span>
+                  <span>Rs {orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0)*15/100 + orderItems.reduce((total:any, item:any) => total + (item.price * item.quantity) , 0) + 150} </span>
                 </li>
               </ul>
          

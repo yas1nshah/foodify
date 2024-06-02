@@ -28,8 +28,6 @@ export const getAllMenuItems = async (): Promise<MenuItemWithCategory[]> => {
         FROM MenuItem
         INNER JOIN Category ON MenuItem.categoryId = Category.id
     `;
-
-    console.log(menuItems)
     return menuItems;
 }
 
