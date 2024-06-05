@@ -20,11 +20,12 @@ import {
 import { useRouter } from 'next/navigation'
 import { deleteCategory } from '@/actions/categories'
 import { Button } from '../ui/button'
+import { deleteMenuItem } from '@/actions/product'
 
 const MenuItem = (params: any) => {
     const router = useRouter()
     const deleteCat = async (id: number)=> {
-        await deleteCategory(id);
+        await deleteMenuItem(id);
         router.refresh()
     }
   return (

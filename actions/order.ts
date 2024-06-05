@@ -23,23 +23,55 @@ export const createOrder = async (status: string) => {
 // Get All Orders
 export const getAllOrders = async () => {
     const orders = await db.$queryRaw`
-        SELECT * FROM "Order"
-        LEFT JOIN "User" ON "Order".userId = "User".id
-    `;
+        SELECT 
+            "Order".id as orderId, 
+            "Order".userId as orderUserId, 
+            "Order".createdAt as orderCreatedAt, 
+            "Order".status as orderStatus, 
+            "Order".placedAt as orderPlacedAt,
+            "User".username as userUsername,
+            "User".email as userEmail,
+            "User".password as userPassword,
+            "User".address as userAddress,
+            "User".isAdmin as userIsAdmin
+        FROM 
+            "Order"
+        LEFT JOIN 
+            "User" ON "Order".userId = "User".id
+        ORDER BY 
+            "Order".id`;
 
+    
    
     return orders;
 }
 
+
 // Get Order By ID
 export const getOrderById = async (id: number) => {
     const order = await db.$queryRaw`
-        SELECT * FROM "Order"
-        LEFT JOIN "User" ON "Order".userId = "User".id
-        WHERE "Order".id = ${id}
+        SELECT 
+            "Order".id as orderId, 
+            "Order".userId as orderUserId, 
+            "Order".createdAt as orderCreatedAt, 
+            "Order".status as orderStatus, 
+            "Order".placedAt as orderPlacedAt,
+            "User".username as userUsername,
+            "User".email as userEmail,
+            "User".password as userPassword,
+            "User".address as userAddress,
+            "User".isAdmin as userIsAdmin
+        FROM 
+            "Order"
+        LEFT JOIN 
+            "User" ON "Order".userId = "User".id
+        WHERE 
+            "Order".id = ${id}
     `;
+    
     return order;
 }
+
 
 // Update Order
 export const updateOrder = async (id: number, status: string) => {
@@ -54,6 +86,11 @@ export const updateOrder = async (id: number, status: string) => {
 
 // Delete Order
 export const deleteOrder = async (id: number) => {
+    console.log("DELETEING")
+    const deletedOrderItem = await db.$queryRaw`
+        DELETE FROM "OrderItem" WHERE orderId = ${id}
+        RETURNING *
+    `;
     const deletedOrder = await db.$queryRaw`
         DELETE FROM "Order" WHERE id = ${id}
         RETURNING *

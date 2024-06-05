@@ -26,7 +26,7 @@ const categoryItem = (params: any) => {
     const router = useRouter()
 
     const deleteCat = async (id: number)=> {
-        await deleteMenuItem(id);
+        await deleteCategory(id);
         router.refresh()
     }
   return (

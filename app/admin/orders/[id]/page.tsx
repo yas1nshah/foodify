@@ -44,7 +44,6 @@ import Link from "next/link"
   
   const OrderDetailsPage = async ({ params }: { params: { id: string } }) => {
     const order:any = await getOrderById(parseInt(params.id));
-  
     const orderItems : any = await getCurrentOrderItems(parseInt(params.id));
 
 
@@ -58,10 +57,10 @@ import Link from "next/link"
           <CardHeader className="flex flex-row items-start bg-muted/50">
             <div className="grid gap-0.5">
               <CardTitle className="group flex items-center gap-2 text-lg">
-                Order {order[0].id}
+                Order {order[0].orderId}
                 
               </CardTitle>
-              <CardDescription>Date: {order[0].placedAt.toLocaleDateString()}</CardDescription>
+              <CardDescription>Date: {order[0].orderPlacedAt.toLocaleDateString()}</CardDescription>
             </div>
           </CardHeader>
           <CardContent className="p-6 text-sm">
@@ -110,7 +109,7 @@ import Link from "next/link"
               <div className="grid gap-3">
                 <div className="font-semibold">Shipping Information</div>
                 <address className="grid gap-0.5 not-italic text-muted-foreground">
-                  <span>{order[0].address}</span>
+                  <span>{order[0].userAddress}</span>
                 
                 </address>
               </div>
@@ -127,7 +126,7 @@ import Link from "next/link"
               <div className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Customer</dt>
-                  <dd>{order[0].username}</dd>
+                  <dd>{order[0].userUsername}</dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Email</dt>
@@ -148,8 +147,8 @@ import Link from "next/link"
                   </dt>
                   <dd>
                     {
-                      order[0].id !== undefined && order[0].status !== undefined ?
-                      <UpdateStatus id={order[0].id} status={order[0].status}/>
+                      order[0].orderId !== undefined && order[0].orderStatus !== undefined ?
+                      <UpdateStatus id={order[0].orderId} status={order[0].orderStatus}/>
                       : <p>Unable to fetch</p>
                     }
                   </dd>
